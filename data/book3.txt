@@ -1,0 +1,2 @@
+Third title: a quick technical note.
+ESP32-S3 can read books from LittleFS and show them page by page on a 1.8 inch TFT.

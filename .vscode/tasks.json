@@ -1,0 +1,261 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "PlatformIO Pico single-job build",
+			"type": "shell",
+			"command": "platformio",
+			"args": [
+				"run",
+				"--environment",
+				"pico",
+				"--jobs",
+				"1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "PlatformIO Pico single-job diagnostic",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"run",
+				"--environment",
+				"pico",
+				"--jobs",
+				"1",
+				"--verbose"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Inspect Pico compiler",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-g++",
+			"args": [
+				"--version"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect Pico compiler binary",
+			"type": "shell",
+			"command": "file",
+			"args": [
+				"/home/uswego/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-g++"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check Pico compiler exit",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-g++",
+			"args": [
+				"--version"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Find alternate ARM compiler",
+			"type": "shell",
+			"command": "sh",
+			"args": [
+				"-c",
+				"command -v arm-none-eabi-g++ || true; command -v aarch64-none-elf-g++ || true; uname -m"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Repair Pico toolchain",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"pkg",
+				"uninstall",
+				"--global",
+				"--tool",
+				"toolchain-gccarmnoneeabi"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify repaired Pico build",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"run",
+				"--environment",
+				"pico",
+				"--jobs",
+				"1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Test repaired compiler",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-g++",
+			"args": [
+				"-mcpu=cortex-m0plus",
+				"-mthumb",
+				"-x",
+				"c++",
+				"-c",
+				"/dev/null",
+				"-o",
+				"/tmp/pico-compiler-test.o"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Clear PlatformIO package cache",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"system",
+				"prune",
+				"--force"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify fresh Pico toolchain",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"run",
+				"--environment",
+				"pico",
+				"--jobs",
+				"1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Inspect PlatformIO package metadata",
+			"type": "shell",
+			"command": "sh",
+			"args": [
+				"-c",
+				"cat /home/uswego/.platformio/platforms/raspberrypi/platform.json 2>/dev/null | head -80; ldd /home/uswego/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-g++ | head -30"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Find ARM toolchain versions",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"pkg",
+				"search",
+				"--global",
+				"--type",
+				"toolchain",
+				"toolchain-gccarmnoneeabi"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Find ARM toolchain versions",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"pkg",
+				"search",
+				"--type",
+				"toolchain",
+				"toolchain-gccarmnoneeabi"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Search ARM toolchain registry",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"pkg",
+				"search",
+				"--type",
+				"toolchain",
+				"toolchain-gccarmnoneeabi"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Search toolchain package registry",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"pkg",
+				"search",
+				"toolchain-gccarmnoneeabi"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build Pico with current ARM GCC",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"run",
+				"--environment",
+				"pico",
+				"--jobs",
+				"1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Build Pico Arduino core",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"run",
+				"--environment",
+				"pico",
+				"--jobs",
+				"1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Final Pico build verification",
+			"type": "shell",
+			"command": "/home/uswego/.platformio/penv/bin/platformio",
+			"args": [
+				"run",
+				"--environment",
+				"pico",
+				"--jobs",
+				"1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}
